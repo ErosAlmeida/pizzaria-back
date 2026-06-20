@@ -1,7 +1,14 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
+import {CreateUserController} from "./controllers/user/CreateUserController"
+import { validateShema } from "./middlewares/validateSchema";
+import { createUserSchema } from "./schemas/userSchema";
 
 const router = Router()
 
-router.post("/users", (req: Request, res: Response) => {
-    res.json({message: "Rodando monstro"})
-})
+router.post("/users", validateShema(createUserSchema), new CreateUserController().handle)
+    
+
+
+export {router}
+
+//ARQUITETURA EM CAMADAS ROUTES-CONTROLLER-SERVICE
