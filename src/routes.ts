@@ -9,6 +9,7 @@ import { CreateCategoryController } from "./controllers/category/CreateCategoryC
 import { isAdmin } from "./middlewares/isAdmin";
 import { createCategorySchema } from "./schemas/categorySchema";
 import { ListCategoryController } from "./controllers/category/ListCategoryController";
+import { CreateProductController } from "./controllers/product/CreateProductController";
 
 
 const router = Router()
@@ -23,6 +24,8 @@ router.post("/category",isAuthenticated,isAdmin , validateShema(createCategorySc
 new CreateCategoryController().handle)
 
 router.get("/category", isAuthenticated, new ListCategoryController().handle)
+
+router.post("/product", isAuthenticated, isAdmin, new CreateProductController().handle)
 
 export {router}
 
