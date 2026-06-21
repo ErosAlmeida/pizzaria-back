@@ -1,3 +1,4 @@
+
 import prismaClient from "../../prisma/index"
 import {hash} from 'bcryptjs'
 
@@ -29,8 +30,17 @@ class CreateUserService{
                 name:name,
                 email: email,
                 password:passwordHash,
+            },
+            select:{
+                id:true,
+                name:true,
+                email:true,
+                role: true,
+                createdAt: true
+
             }
         })
+        
 
         return user.name;
     }
