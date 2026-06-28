@@ -17,6 +17,10 @@ import { ListProductController } from "./controllers/product/ListProductControll
 import { DeleteProductController } from "./controllers/product/DeleteProductController";
 
 import { ListProductByCategoryController } from "./controllers/product/ListProductByCategoryController";
+import { ListOrdersController } from "./controllers/order/ListOrdersController";
+import { addItemSchema, createOrderSchema } from "./schemas/orderSchema";
+import { AddItemController } from "./controllers/order/AddItemController";
+import { CreateOrderController } from "./controllers/order/CreateOrderController";
 
 
 const router = Router()
@@ -40,8 +44,20 @@ router.get("/products", isAuthenticated, validateShema(listProductSchema), new L
 
 router.delete("/product", isAuthenticated, isAdmin, new DeleteProductController().handle)
 
+router.post("/order", isAuthenticated, validateShema(createOrderSchema), new CreateOrderController().handle)
+
 router.get("/category/product", isAuthenticated, validateShema(listProductByCategoryShema), new 
 ListProductByCategoryController().handle)
+
+router.get("/orders", isAuthenticated, new ListOrdersController().handle)
+
+//adicionar item a order
+
+router.post("/order/add", isAuthenticated,validateShema(addItemSchema), new AddItemController().handle)
+
+
 export {router}
+
+
 
 //ARQUITETURA EM CAMADAS ROUTES-CONTROLLER-SERVICE
